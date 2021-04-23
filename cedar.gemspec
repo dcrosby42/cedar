@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.author = "David Crosby"
   s.email = "dcrosby42@gmail.com"
   s.homepage = "http://github.com/dcrosby42"
+  s.licenses = ["MIT"]
   s.files = Dir["README.md", "VERSION", "Gemfile", "Rakefile", "lib/**/*"]
   s.require_path = "lib"
   s.add_dependency "gosu", "~>1.2.0"
