@@ -1,4 +1,5 @@
-version = File.read("VERSION").strip
+version_file = File.expand_path(File.dirname(__FILE__)) + "/VERSION"
+version = File.read(version_file).strip
 
 Gem::Specification.new do |s|
   s.name = "cedar"
@@ -8,7 +9,7 @@ Gem::Specification.new do |s|
   s.description = "Gosu-based, with Entity-Component-System framework and Elm-inspired modules"
   s.author = "David Crosby"
   s.email = "dcrosby42@gmail.com"
-  s.homepage = "http://github.com/dcrosby42"
+  s.homepage = "http://github.com/dcrosby42/cedar"
   s.licenses = ["MIT"]
   s.files = Dir["README.md", "VERSION", "Gemfile", "Rakefile", "lib/**/*"]
   s.require_path = "lib"
