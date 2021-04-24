@@ -2,6 +2,9 @@ module Cedar::Sidefx
   class ToggleFullscreen
   end
 
-  class Reload
+  class ReloadCode
+  end
+
+  class ResetState
   end
 end

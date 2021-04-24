@@ -18,7 +18,7 @@ class Cedar::Game < Gosu::Window
   def reset_state
     @state = @module.new_state
     @res = new_resources
-    @module.load_resources(@state, @res) if @module.respond_to?(:load_resources)
+    @res.configure(@module.resource_config) if @module.respond_to?(:resource_config)
   end
 
   def new_resources
@@ -62,8 +62,10 @@ class Cedar::Game < Gosu::Window
       @fullscreen = !@fullscreen
       puts "Toggle fullscreen => #{@fullscreen}"
       self.fullscreen = @fullscreen
-    when Cedar::Sidefx::Reload
+    when Cedar::Sidefx::ReloadCode
       reload_code
+    when Cedar::Sidefx::ResetState
+      reset_state
     end
   end
 
