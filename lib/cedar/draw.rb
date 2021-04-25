@@ -5,6 +5,7 @@ module Cedar
         Gosu.draw_rect(x, y, w, h, color || Gosu::Color::WHITE, z || 100, mode || :default)
       end
     end
+
     RectOutline = Struct.new(:x, :y, :z, :w, :h, :color, :mode, keyword_init: true) do
       def draw(res)
         self.color ||= Gosu::Color::WHITE

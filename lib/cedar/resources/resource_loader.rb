@@ -6,18 +6,23 @@ class Cedar::Resources::ResourceLoader
     @resource_dir = dir
   end
 
+  # Returns a Gosu::Image for the named image file
   def load_image(name, tileable: true, retro: true)
     Gosu::Image.new(get_file_path(name), tileable: tileable, retro: retro)
   rescue
     raise "Cannot load_image #{name.inspect}"
   end
 
+  # Returns the raw content of the given file
   def load_file(name)
     File.read(get_file_path(name))
   rescue
     raise "Cannot load_file #{name.inspect}"
   end
 
+  # Returns the parsed data (if name has recognizable file ext,
+  # such as .json, .yaml, .yml etc.)
+  # Returns raw content if unrecognized.
   def load_data(name)
     text = load_file(name)
     case File.extname(name)

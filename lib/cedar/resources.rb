@@ -28,10 +28,6 @@ module Cedar
       @types[type_name] = obj_type
     end
 
-    def find_object_type(obj_config)
-      @types[obj_config[:type].to_s.underscore] || raise("Can't determine type of resource object to use for #{obj_config.inspect}")
-    end
-
     # Register one or more object configurations.
     # All object config Hashes must have :name and :type keys. (Keys may be strings or symbols)
     # When given an Array, each item of the Array will be re-sent to #configure.
@@ -84,6 +80,11 @@ module Cedar
 
     private
 
+    def find_object_type(obj_config)
+      @types[obj_config[:type].to_s.underscore] || raise("Can't determine type of resource object to use for #{obj_config.inspect}")
+    end
+
+    # Return the resource constructor for the named resource within the given category
     def get_constructor(category, name)
       ctor = @ctors[category][name]
       return ctor if ctor
