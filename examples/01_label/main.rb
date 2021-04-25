@@ -3,9 +3,7 @@ require "bundler/setup"
 require "cedar"
 
 module LabelExample
-  extend self
-
-  def new_state
+  def self.new_state
     {
       words: "Welcome to the Cedar grove!",
       x: 0, y: 0,
@@ -15,7 +13,7 @@ module LabelExample
     }
   end
 
-  def update(state, input, res)
+  def self.update(state, input, res)
     # controls
     if input.keyboard.pressed?(Gosu::KB_SPACE)
       if state[:words] == "O"
@@ -35,10 +33,10 @@ module LabelExample
     state
   end
 
-  def draw(state, output, res)
+  def self.draw(state, output, res)
+    output.graphics << Cedar::Draw::RectOutline.new(x: 1, y: 1, w: 210, h: 410, color: state[:border_color])
     output.graphics << Cedar::Draw::Label.new(text: "(hit SPACE)", color: Gosu::Color.rgba(255, 255, 255, 80))
     output.graphics << Cedar::Draw::Label.new(x: state[:x], y: state[:y], text: state[:words], color: state[:color])
-    output.graphics << Cedar::Draw::RectOutline.new(x: 1, y: 1, w: 210, h: 410, color: state[:border_color])
   end
 end
 

@@ -6,6 +6,7 @@
   - [Modules](#modules)
     - [Module State](#module-state)
 - [API](#api)
+  - [Game](#game)
   - [Input](#input)
     - [Time](#time)
     - [Keyboard](#keyboard)
@@ -22,6 +23,7 @@
     - [Cedar::Draw::Scale < Group](#cedardrawscale--group)
   - [Resources](#resources)
     - [Resource Configs](#resource-configs)
+      - [Config Examples](#config-examples)
       - [Custom Resources](#custom-resources)
 - [ECS](#ecs)
 
@@ -57,7 +59,22 @@ A Module is an object (or Ruby module or class) with these methods
 
 # API
 
+## Game
+
+Options: (all but `root_module` are optional with sane defaults)
+
+- `root_module` - You game Module. See [Concepts: Module](#modules)
+- `caption` - The window title. Optional, defaults to root_module.name
+- `width` and `height` - pixel dimensions of the game window. Default 1280x720
+- `fullscreen` - bool, default false
+- `mouse_pointer_visible` - bool, default false
+- `update_interval` - Interval between updates in milliseconds.  The default leads to 60fps.  See [Gosu::Window#update_interval](https://www.rubydoc.info/github/gosu/gosu/master/Gosu%2FWindow:update_interval) for more info.
+
+See `Game#initialize` in [lib/game.rb](lib/game.rb)
+
 ## Input 
+
+[Cedar::Input](lib/cedar/)
 
 - input.time
 - input.keyboard
@@ -170,6 +187,14 @@ output.graphics << scaled
 
 ## Resources
 
+The Cedar::Resources object is the bridge between symbolic references (like names of sprites and animations, data blob names, sfx names... things you'd store in your game state) and their realized asset data / live objects (Gosu images, initialized sound playback objects, big map files).
+
+Resources are (typically) lazy-loaded and cached on first use.
+
+`image`, `file` and `data` resources are "auto constructed" by name, when their names coincide with their filesystem paths.
+
+`sprite`, `animation`, `font` etc. resources are named resources that must be pre-configured by modules before they can be referenced (and thence loaded/cached) by name.
+
 - res.get_file(name)
 - res.get_data(name)
 - res.get_image(name)
@@ -183,7 +208,67 @@ output.graphics << scaled
 - res.reset_caches
 
 ### Resource Configs
-tbd
+
+under construction
+
+A "config" is a Hash with key `:type`, which is a named reference to a registered "object type".
+
+The `Resources#configure` method accepts:
+  - A config Hash
+  - A string naming a JSON data resource that contains a config, or array thereof
+  - An Array of either of the above
+  - (#configure is invoked recursively as necessary, so arrays of arrays of names of JSON files, or any arbitrary mixture, usually works.)
+  - (nesting Arrays doesn't create nested naming)
+
+Configured resources are available via their `names` within their object type's `category`.
+
+- `image`
+  - `image`
+- `sprite`
+  - `image_sprite`
+  - `grid_sheet_sprite`
+- `animation`
+  - `cyclic_sprite_animation`
+
+#### Config Examples
+
+```json
+{
+    "type": "image_sprite",
+    "image": "sprites/smiley.png",
+    "name": "smiley"
+}
+// res.get_sprite("smiley")
+```
+
+```json
+{
+    "type": "grid_sheet_sprite",
+    "name": "girl_run",
+    "image": "sprites/girl_sprites.png",
+    "tile_grid": {
+        "x": 0,
+        "y": 36,
+        "w": 36,
+        "h": 36,
+        "count": 8,
+        "stride": 3
+    }
+}
+// res.get_sprite("girl_run")
+```
+
+```json
+{
+    "name": "girl_run",
+    "type": "cyclic_sprite_animation",
+    "sprite": "girl_run",
+    "fps": 24
+}
+// res.get_animation("girl_run")
+```
+
+
 
 #### Custom Resources
 

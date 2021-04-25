@@ -59,6 +59,7 @@ module Cedar
       end
     end
 
+    # TODO: support 'z' for Group (and Scale and Translate) by applying z (somehow? adding?) to all child elemnents, recursively into other groups)
     class Group
       def initialize(&block)
         @drawables = []
