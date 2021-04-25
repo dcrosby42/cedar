@@ -1,3 +1,26 @@
+**Cedar**
+
+- [Modules](#modules)
+  - [Module State](#module-state)
+  - [Input](#input)
+    - [Time](#time)
+    - [Keyboard](#keyboard)
+    - [Mouse](#mouse)
+  - [Output](#output)
+    - [Cedar::Draw::Rect](#cedardrawrect)
+    - [Cedar::Draw::RectOutline](#cedardrawrectoutline)
+    - [Cedar::Draw::Line](#cedardrawline)
+    - [Cedar::Draw::Image](#cedardrawimage)
+    - [Cedar::Draw::SheetSprite](#cedardrawsheetsprite)
+    - [Cedar::Draw::Label](#cedardrawlabel)
+    - [Cedar::Draw::Group](#cedardrawgroup)
+    - [Cedar::Draw::Translate < Group](#cedardrawtranslate--group)
+    - [Cedar::Draw::Scale < Group](#cedardrawscale--group)
+  - [Resources](#resources)
+    - [Resource Configs](#resource-configs)
+      - [Custom Resources](#custom-resources)
+- [ECS](#ecs)
+
 # Modules
 
 A Module is an object (or Ruby module or class) with these methods
@@ -69,7 +92,7 @@ output.graphics << Rect.new(x:0, y:0, z:0, w:100, h:50, color:Gosu::Color::BLUE,
 ### Cedar::Draw::RectOutline
 
 ```ruby
-output.graphics << RectLine.new(x:0, y:0, z:0, w:100, h:50, color:Gosu::Color::RED, mode: :default)
+output.graphics << RectOutline.new(x:0, y:0, z:0, w:100, h:50, color:Gosu::Color::RED, mode: :default)
 ```
 
 ### Cedar::Draw::Line

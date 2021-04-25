@@ -1,7 +1,7 @@
 class Cedar::Game < Gosu::Window
-  def initialize(root_module:, caption: "Game", width: 1280, height: 720, fullscreen: false, update_interval: nil, mouse_pointer_visible: false, reload_button: Gosu::KB_R)
+  def initialize(root_module:, caption: nil, width: 1280, height: 720, fullscreen: false, update_interval: nil, mouse_pointer_visible: false, reload_button: Gosu::KB_R)
     super width, height
-    self.caption = caption
+    self.caption = caption || (root_module.name if root_module.respond_to?(:name)) || "Game"
     @fullscreen = fullscreen
     self.fullscreen = @fullscreen
     self.update_interval = update_interval if update_interval
