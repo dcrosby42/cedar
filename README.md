@@ -1,7 +1,11 @@
 **Cedar**
 
-- [Modules](#modules)
-  - [Module State](#module-state)
+- [Getting Started](#getting-started)
+- [Examples](#examples)
+- [Concepts](#concepts)
+  - [Modules](#modules)
+    - [Module State](#module-state)
+- [API](#api)
   - [Input](#input)
     - [Time](#time)
     - [Keyboard](#keyboard)
@@ -21,7 +25,15 @@
       - [Custom Resources](#custom-resources)
 - [ECS](#ecs)
 
-# Modules
+# Getting Started
+
+# Examples
+
+- [01_label](examples/01_label) - Barebones example Cedar app
+
+# Concepts
+
+## Modules
 
 A Module is an object (or Ruby module or class) with these methods
 
@@ -30,7 +42,7 @@ A Module is an object (or Ruby module or class) with these methods
 - `draw(state, output, resources)`
 - `resource_config()` => `config`
 
-## Module State
+### Module State
 
 - Any object or value can serve as the state of a Module.
 - Cedar initializes a Module by calling `new_state` and retaining the returned object.
@@ -42,6 +54,8 @@ A Module is an object (or Ruby module or class) with these methods
 - **Modules must not retain any direct references to state.** 
   - All required data should reside withing the state objects created and returned by `new_state` and `update`.
   - Cedar thinks of a state object as a snapshot of a Module in time, and may copy, store, and re-send to `update` or `draw` idempotently, in any order, at any time.
+
+# API
 
 ## Input 
 
