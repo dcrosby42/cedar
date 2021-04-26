@@ -29,9 +29,18 @@ class Cedar::Game < Gosu::Window
       Cedar::Resources::ImageSprite,
       Cedar::Resources::GridSheetSprite,
       Cedar::Resources::CyclicSpriteAnimation,
+      Cedar::Resources::Font,
     ].each do |c|
       res.register_object_type c
     end
+
+    res.configure({
+      type: "font",
+      name: "default",
+      font: nil, # invoke Gosu's default font
+      size: 20,
+    })
+
     res
   end
 
@@ -99,6 +108,7 @@ class Cedar::Game < Gosu::Window
   end
 
   def reload_code
+    puts "Reload code..."
     if AutoReload.reload_all
       puts "Code reloaded"
       return true

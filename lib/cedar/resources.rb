@@ -13,6 +13,8 @@ module Cedar
       reset_caches
     end
 
+    def loader; @resource_loader; end
+
     def reset_caches
       @caches = Hash.new do |h, k| h[k] = {} end
     end
@@ -69,9 +71,7 @@ module Cedar
     end
 
     def get_font(name)
-      raise("get_font needs to be implemented")
-      # TODO: fonts
-      # ...= Gosu::Font.new(20)
+      get_resource :font, name
     end
 
     def get_resource(category, name)
@@ -107,6 +107,7 @@ module Cedar
 end
 
 require "cedar/resources/resource_loader"
+require "cedar/resources/font"
 require "cedar/resources/base_sprite"
 require "cedar/resources/image_sprite"
 require "cedar/resources/grid_sheet_sprite"

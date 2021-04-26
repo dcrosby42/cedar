@@ -20,6 +20,16 @@ class Cedar::Resources::ResourceLoader
     raise "Cannot load_file #{name.inspect}"
   end
 
+  def load_font(font_file: nil, height: nil, bold: false, italic: false, underline: false)
+    opts = {
+      bold: !!bold,
+      italic: !!italic,
+      underline: !!underline,
+    }
+    opts[:name] = get_file_path(font_file) if font_file
+    return Gosu::Font.new(height, opts)
+  end
+
   # Returns the parsed data (if name has recognizable file ext,
   # such as .json, .yaml, .yml etc.)
   # Returns raw content if unrecognized.
