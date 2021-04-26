@@ -26,6 +26,11 @@
       - [Config Examples](#config-examples)
       - [Custom Resources](#custom-resources)
 - [ECS](#ecs)
+  - [Cedar::Entity](#cedarentity)
+  - [Cedar::EntityStore](#cedarentitystore)
+  - [Cedar::Components](#cedarcomponents)
+  - [Cedar::Systems](#cedarsystems)
+  - [Search - filters, caching](#search---filters-caching)
 
 # Getting Started
 
@@ -287,3 +292,25 @@ Implement your new resource type as a class with these methods:
 # ECS
 
 **E**ntity **C**omponent **S**ystem
+
+## Cedar::Entity
+
+[cedar/ecs/entity.rb](lib/cedar/ecs/entity.rb)
+
+## Cedar::EntityStore
+
+[cedar/ecs/entity_store.rb](lib/cedar/ecs/entity_store.rb)
+
+## Cedar::Components
+
+[cedar/ecs/components.rb](lib/cedar/ecs/components.rb)
+
+## Cedar::Systems
+
+[cedar/ecs/systems.rb](lib/cedar/ecs/systems.rb)
+
+## Search - filters, caching
+
+[cedar/ecs/caching_entity_store.rb](lib/cedar/ecs/caching_entity_store.rb)
+
+[cedar/ecs/entity_filter.rb](lib/cedar/ecs/entity_filter.rb)
