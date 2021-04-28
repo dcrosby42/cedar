@@ -108,7 +108,6 @@ class Cedar::Game < Gosu::Window
   end
 
   def reload_code
-    puts "Reload code..."
     if AutoReload.reload_all
       puts "Code reloaded"
       return true
@@ -118,6 +117,7 @@ class Cedar::Game < Gosu::Window
 
   def check_for_reload_code
     if @reload_button && @input.keyboard.pressed?(@reload_button) && @input.keyboard.control?
+      puts "Code reload requested"
       return reload_code
     end
     false

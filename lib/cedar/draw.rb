@@ -27,7 +27,7 @@ module Cedar
 
     Image = Struct.new(:image, :path, :x, :y, :z, :scale_x, :scale_y, :subimage, keyword_init: true) do
       def draw(res)
-        img = image || res.images[path || raise("Image needs :image or :path")]
+        img = image || res.get_image(path || raise("Image needs :image or :path"))
         if subimage
           img = img.subimage(*subimage)
         end

@@ -21,6 +21,7 @@ class Cedar::Resources::ResourceLoader
   end
 
   def load_font(font_file: nil, height: nil, bold: false, italic: false, underline: false)
+    height ||= 20
     opts = {
       bold: !!bold,
       italic: !!italic,
