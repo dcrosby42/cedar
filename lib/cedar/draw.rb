@@ -54,7 +54,7 @@ module Cedar
         # FIXME! FONTS
         # @fonts[:default] = Gosu::Font.new(20)
         # f = res.fonts[font || :default]
-        font = "default"
+        font = self.font || "default"
         f = res.get_font(font)
         f.draw_text(text, x || 0, y || 0, z || 0, scale_x || 1, scale_y || 1, color || Gosu::Color::WHITE)
       end
