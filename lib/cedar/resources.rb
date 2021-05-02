@@ -7,6 +7,7 @@ module Cedar
       @ctors = Hash.new do |h, k| h[k] = {} end
       @dynamic_ctors = {
         image: lambda do |name| lambda do @resource_loader.load_image(name) end end,
+        sound: lambda do |name| lambda do @resource_loader.load_sound(name) end end,
         file: lambda do |name| lambda do @resource_loader.load_file(name) end end,
         data: lambda do |name| lambda do @resource_loader.load_data(name) end end,
       }
@@ -72,6 +73,10 @@ module Cedar
 
     def get_font(name)
       get_resource :font, name
+    end
+
+    def get_sound(name)
+      get_resource :sound, name
     end
 
     def get_resource(category, name)

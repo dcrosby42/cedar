@@ -80,6 +80,7 @@ class Cedar::Game < Gosu::Window
     @output.reset
     @module.draw(@state, @output, @res)
     @output.graphics.draw(@res)
+    Cedar::Sound.cleanup
   end
 
   def button_down(id)

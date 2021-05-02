@@ -13,6 +13,13 @@ class Cedar::Resources::ResourceLoader
     raise "Cannot load_image #{name.inspect}"
   end
 
+  # Returns a Gosu::Sample for the named sound file
+  def load_sound(name) # todo? :volume :speed :looping
+    Gosu::Sample.new(get_file_path(name))
+  rescue
+    raise "Cannot load_sound #{name.inspect}"
+  end
+
   # Returns the raw content of the given file
   def load_file(name)
     File.read(get_file_path(name))
