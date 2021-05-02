@@ -2,18 +2,30 @@ module Cedar
   module Draw
     Rect = Struct.new(:x, :y, :z, :w, :h, :color, :mode, keyword_init: true) do
       def draw(res)
-        Gosu.draw_rect(x, y, w, h, color || Gosu::Color::WHITE, z || 100, mode || :default)
+        self.color ||= Gosu::Color::WHITE
+        self.x ||= 0
+        self.y ||= 0
+        self.w ||= 1
+        self.h ||= 1
+        self.z ||= 100
+        self.mode ||= :default
+        Gosu.draw_rect(x, y, w, h, color, z, mode)
       end
     end
 
     RectOutline = Struct.new(:x, :y, :z, :w, :h, :color, :mode, keyword_init: true) do
       def draw(res)
         self.color ||= Gosu::Color::WHITE
+        self.x ||= 0
+        self.y ||= 0
+        self.w ||= 1
+        self.h ||= 1
         self.z ||= 100
-        Gosu.draw_line(x, y, color, x + w, y, color, z, mode || :default)
-        Gosu.draw_line(x + w, y, color, x + w, y + h, color, z, mode || :default)
-        Gosu.draw_line(x, y, color, x, y + h, color, z, mode || :default)
-        Gosu.draw_line(x, y + h, color, x + w, y + h, color, z, mode || :default)
+        self.mode ||= :default
+        Gosu.draw_line(x, y, color, x + w, y, color, z, mode)
+        Gosu.draw_line(x + w, y, color, x + w, y + h, color, z, mode)
+        Gosu.draw_line(x, y, color, x, y + h, color, z, mode)
+        Gosu.draw_line(x, y + h, color, x + w, y + h, color, z, mode)
       end
     end
 
