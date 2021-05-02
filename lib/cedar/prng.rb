@@ -57,13 +57,16 @@ class Cedar::Prng
       (Kernel.rand * B).to_i
     end
 
-    def gen_seed(s)
-      s = call(s)
-      seed = s
-      seed += 1111
-      seed *= 2222
-      seed -= 3333
-      seed %= B
+    def gen_seed(s, n = 1)
+      seed = nil
+      n.times do
+        s = call(s)
+        seed = s
+        seed += 1111
+        seed *= 2222
+        seed -= 3333
+        seed %= B
+      end
       [seed, s]
     end
   end
@@ -108,12 +111,12 @@ class Cedar::Prng
     res
   end
 
-  def gen_seed
-    seed, @state = self.class.gen_seed(@state)
+  def gen_seed(n = 1)
+    seed, @state = self.class.gen_seed(@state, n)
     seed
   end
 
-  def gen_rng
-    self.class.new(gen_seed)
+  def gen_rng(n = 1)
+    self.class.new(gen_seed(n))
   end
 end
