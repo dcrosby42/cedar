@@ -4,7 +4,7 @@ module Cedar
   # #graphics is the root Cedar::Draw::Group; drawing is accomplished by appending
   # parameterized drawing instructions to #graphics, eg:
   #     output.graphics << Draw::Rect.new(...)
-  #     output.graphics << Draw::Label.new(...)
+  #     output.graphics << Draw::Text.new(...)
   class Output
     attr_reader :graphics, :window
 

@@ -35,8 +35,8 @@ module LabelExample
 
   def self.draw(state, output, res)
     output.graphics << Cedar::Draw::RectOutline.new(x: 1, y: 1, w: 210, h: 410, color: state[:border_color])
-    output.graphics << Cedar::Draw::Label.new(text: "(hit SPACE)", color: Gosu::Color.rgba(255, 255, 255, 80))
-    output.graphics << Cedar::Draw::Label.new(x: state[:x], y: state[:y], text: state[:words], color: state[:color])
+    output.graphics << Cedar::Draw::Text.new(text: "(hit SPACE)", color: Gosu::Color.rgba(255, 255, 255, 80))
+    output.graphics << Cedar::Draw::Text.new(x: state[:x], y: state[:y], text: state[:words], color: state[:color])
   end
 end
 

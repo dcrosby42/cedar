@@ -1,4 +1,4 @@
-**01_label** - A bouncing label
+**01_label** - A bouncing text object
 
 A barebones Cedar example.
 
@@ -163,11 +163,11 @@ Eg,
 
 ```ruby
     ...
-    output.graphics << Cedar::Draw::Label.new(x: state[:x], y: state[:y], text: state[:words], color: state[:color])
+    output.graphics << Cedar::Draw:Text.new(x: state[:x], y: state[:y], text: state[:words], color: state[:color])
     ...
 ```
 
-...creates a new `Label` object using values from our state, and adds it to `output.graphics`. 
+...creates a new `Text` object using values from our state, and adds it to `output.graphics`. 
 
 Notes on `z` and draw order:
 

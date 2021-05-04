@@ -47,30 +47,30 @@ module Cedar
       end
     end
 
-    SheetSprite = Struct.new(:sprite_id, :sprite_frame, :x, :y, :z, :angle, :center_x, :center_y, :scale_x, :scale_y, keyword_init: true) do
+    Sprite = Struct.new(:name, :sprite_id, :frame, :sprite_frame, :x, :y, :z, :angle, :center_x, :center_y, :scale_x, :scale_y, keyword_init: true) do
       def draw(res)
-        sprite = res.get_sprite(sprite_id || raise(":sprite_id required"))
+        self.name ||= self.sprite_id
+        sprite = res.get_sprite(name || raise(":name required"))
         self.center_x ||= sprite.center_x || 0
         self.center_y ||= sprite.center_y || 0
         self.scale_x ||= sprite.scale_x || 1
         self.scale_y ||= sprite.scale_y || 1
-        img = sprite.image_for_frame(sprite_frame || 0)
+        img = sprite.image_for_frame(frame || sprite_frame || 0)
         img.draw_rot(x, y, z || 0, angle || 0, center_x, center_y, scale_x, scale_y)
       end
     end
+    # Legacy alias
+    SheetSprite = Sprite
 
-    DefaultLabelFont = Gosu::Font.new(20)
-
-    Label = Struct.new(:text, :font, :x, :y, :z, :scale_x, :scale_y, :color, keyword_init: true) do
+    Text = Struct.new(:text, :font, :x, :y, :z, :scale_x, :scale_y, :color, keyword_init: true) do
       def draw(res)
-        # FIXME! FONTS
-        # @fonts[:default] = Gosu::Font.new(20)
-        # f = res.fonts[font || :default]
         font = self.font || "default"
         f = res.get_font(font)
         f.draw_text(text, x || 0, y || 0, z || 0, scale_x || 1, scale_y || 1, color || Gosu::Color::WHITE)
       end
     end
+    # legacy alias
+    Label = Text
 
     # TODO: support 'z' for Group (and Scale and Translate) by applying z (somehow? adding?) to all child elemnents, recursively into other groups)
     class Group

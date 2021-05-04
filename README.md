@@ -16,8 +16,8 @@
     - [Cedar::Draw::RectOutline](#cedardrawrectoutline)
     - [Cedar::Draw::Line](#cedardrawline)
     - [Cedar::Draw::Image](#cedardrawimage)
-    - [Cedar::Draw::SheetSprite](#cedardrawsheetsprite)
-    - [Cedar::Draw::Label](#cedardrawlabel)
+    - [Cedar::Draw::Sprite](#cedardrawsprite)
+    - [Cedar::Draw::Text](#cedardrawtext)
     - [Cedar::Draw::Group](#cedardrawgroup)
     - [Cedar::Draw::Translate < Group](#cedardrawtranslate--group)
     - [Cedar::Draw::Scale < Group](#cedardrawscale--group)
@@ -119,6 +119,24 @@ tbd
 
 See below for a list of drawable types
 
+### Cedar::Draw::Text
+
+```ruby
+output.graphics << Text.new(text: "You have: No tea.", font:Gosu::Font.new(20), x:0, y:0, z:0, scale_x:1, scale_y:1, color:Gosu::Color::WHITE) do
+```
+
+### Cedar::Draw::Image
+
+```ruby
+output.graphics << Image.new(image:Gosu::Image, path:"sprites/smiley.gif", x:20, y:100, z:101, scale_x:1.0, scale_y:1.0, subimage:[subx,suby,subw,subh]) do
+```
+
+### Cedar::Draw::Sprite
+
+```ruby
+output.graphics << Sprite.new(name: "smiley_face", frame:5, x:0, y:0, z:99, angle:0, center_x:0, center_y:0, scale_x:1, scale_y:1) do
+```
+
 ### Cedar::Draw::Rect
 
 ```ruby
@@ -137,24 +155,6 @@ output.graphics << RectOutline.new(x:0, y:0, z:0, w:100, h:50, color:Gosu::Color
 output.graphics << Line.new(x1:100, y1:20, x2:250, :y2:90, z:100, color:Gosu::Color::WHITE, color2:Gosu::Color::BLUE, mode: :default)
 ```
 
-### Cedar::Draw::Image
-
-```ruby
-output.graphics << Image.new(image:Gosu::Image, path:"sprites/smiley.gif", x:20, y:100, z:101, scale_x:1.0, scale_y:1.0, subimage:[subx,suby,subw,subh]) do
-```
-
-### Cedar::Draw::SheetSprite
-
-```ruby
-output.graphics << SheetSprite.new(sprite_id: "sprites/wizard.png", sprite_frame:5, x:0, y:0, z:99, angle:0, center_x:0, center_y:0, scale_x:1, scale_y:1) do
-```
-
-### Cedar::Draw::Label
-
-```ruby
-output.graphics << Label.new(text: "You have: No tea.", font:Gosu::Font.new(20), x:0, y:0, z:0, scale_x:1, scale_y:1, color:Gosu::Color::WHITE) do
-```
-
 ### Cedar::Draw::Group
 
 - group.clear()
@@ -165,7 +165,7 @@ output.graphics << Label.new(text: "You have: No tea.", font:Gosu::Font.new(20),
 ```ruby
 group = Group.new do |g|
   g << Rect.new(x:5, y:5, z:99, color:Gosu::Color.rgba(0, 0, 0, 80))
-  g << Label.new(text: "LogZ!", x:5, y:5, z: 100)
+  g << Text.new(text: "LogZ!", x:5, y:5, z: 100)
 end
 output.graphics << group
 ```
@@ -175,7 +175,7 @@ output.graphics << group
 ```ruby
 moved = Translate.new(5,5) do |g|
   g << Rect.new(x:0, y:0, z:99, color:Gosu::Color.rgba(0, 0, 0, 80))
-  g << Label.new(text: "LogZ!", x:0, y:0, z: 100)
+  g << Text.new(text: "LogZ!", x:0, y:0, z: 100)
 end
 output.graphics << moved
 ```
@@ -185,7 +185,7 @@ output.graphics << moved
 ```ruby
 scaled = Scale.new(2.0, 2.0) do |g|
   g << Rect.new(x:0, y:0, z:99, color:Gosu::Color.rgba(0, 0, 0, 80))
-  g << Label.new(text: "LogZ!", x:0, y:0, z: 100)
+  g << Text.new(text: "LogZ!", x:0, y:0, z: 100)
 end
 output.graphics << scaled
 ```
@@ -241,9 +241,9 @@ Configured resources are available via their `names` within their object type's 
 {
     "type": "image_sprite",
     "image": "sprites/smiley.png",
-    "name": "smiley"
+    "name": "smiley_face"
 }
-// res.get_sprite("smiley")
+// res.get_sprite("smiley_face")
 ```
 
 ```json

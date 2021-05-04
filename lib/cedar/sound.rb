@@ -9,21 +9,19 @@ module Cedar::Sound
     (ChannelCache.keys - ChannelAccess).each do |key|
       ChannelCache[key].stop
       ChannelCache.delete key
-      puts "Cedar::Sound::Effect remove channel #{key} "
     end
     ChannelAccess.clear
   end
 
-  # #play volume speed looping
-
+  # Meets the informal Cedar "drawable" interface
   Effect = Struct.new(:path, :id, keyword_init: true) do
+    # #play volume speed looping
     def draw(res)
       key = "#{path}_#{id}"
       ch = ChannelCache[key]
       if !ch
         sample = res.get_sound(path)
         ch = sample.play
-        puts "Cedar::Sound::Effect play sound #{key} "
         ChannelCache[key] = ch
       end
       ChannelAccess << key

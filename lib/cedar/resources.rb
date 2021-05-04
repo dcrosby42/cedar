@@ -77,6 +77,7 @@ module Cedar
 
     def get_sound(name)
       get_resource :sound, name
+      # @resource_loader.load_sound(name)
     end
 
     def get_resource(category, name)
