@@ -49,18 +49,26 @@ module Cedar
 
     Sprite = Struct.new(:name, :sprite_id, :frame, :sprite_frame, :x, :y, :z, :angle, :center_x, :center_y, :scale_x, :scale_y, keyword_init: true) do
       def draw(res)
-        self.name ||= self.sprite_id
-        sprite = res.get_sprite(name || raise(":name required"))
+        self.name ||= self.sprite_id  # sprite_id is deprecated in favor of name
+        return if name.nil? # quietly draw nothing when given nil.  Animations may choose to send nil sprite ids to indicate "nothing"
+        sprite = res.get_sprite(self.name)
         self.center_x ||= sprite.center_x || 0
         self.center_y ||= sprite.center_y || 0
         self.scale_x ||= sprite.scale_x || 1
         self.scale_y ||= sprite.scale_y || 1
-        img = sprite.image_for_frame(frame || sprite_frame || 0)
+        img = sprite.image_for_frame(frame || sprite_frame || 0) # sprite_frame is deprecated in favor of frame
         img.draw_rot(x, y, z || 0, angle || 0, center_x, center_y, scale_x, scale_y)
       end
     end
     # Legacy alias
     SheetSprite = Sprite
+
+    Animation = Struct.new(:name, :t, :x, :y, :z, :angle, :center_x, :center_y, :scale_x, :scale_y, keyword_init: true) do
+      def draw(res)
+        sprite, frame = res.get_animation(name).call(t)
+        Sprite.new(name: sprite, frame: frame, x: x, y: y, z: z, angle: angle, center_x: center_x, center_y: center_y, scale_x: scale_x).draw(res)
+      end
+    end
 
     Text = Struct.new(:text, :font, :x, :y, :z, :scale_x, :scale_y, :color, keyword_init: true) do
       def draw(res)

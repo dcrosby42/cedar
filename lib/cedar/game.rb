@@ -28,6 +28,7 @@ class Cedar::Game < Gosu::Window
     [
       Cedar::Resources::ImageSprite,
       Cedar::Resources::GridSheetSprite,
+      Cedar::Resources::SpriteAnimation,
       Cedar::Resources::CyclicSpriteAnimation,
       Cedar::Resources::Font,
     ].each do |c|

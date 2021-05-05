@@ -120,13 +120,14 @@ describe "Cedar::Resources" do
     before do
       resources.register_object_type(Cedar::Resources::ImageSprite)
       resources.register_object_type(Cedar::Resources::GridSheetSprite)
+      resources.register_object_type(Cedar::Resources::SpriteAnimation)
       resources.register_object_type(Cedar::Resources::CyclicSpriteAnimation)
 
       resources.configure([
         "test_girl_sprite.json",
         "test_snowy_background.json",
         {
-          type: "cyclic_sprite_animation",
+          type: "sprite_animation",
           name: "girl_run",
           sprite: "girl_run",
           fps: 24,
@@ -166,7 +167,7 @@ describe "Cedar::Resources" do
     it "can load CyclicAnimation objects" do
       anim = resources.get_animation("girl_run")
       expect(anim).not_to be_nil
-      expect(anim).to be_instance_of(Cedar::Resources::CyclicSpriteAnimation)
+      expect(anim).to be_instance_of(Cedar::Resources::SpriteAnimation)
     end
   end
 end
