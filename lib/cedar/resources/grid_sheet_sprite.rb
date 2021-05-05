@@ -34,8 +34,12 @@ class Cedar::Resources::GridSheetSprite < Cedar::Resources::BaseSprite
   def self.construct(config:, resources:)
     new(
       name: config[:name],
-      tile_grid: open_struct(config[:grid] || config[:tile_grid]), # tile_grid is from early dev, deprecated
       image: resources.get_image(config[:image]),
+      grid: open_struct(config[:grid] || config[:tile_grid]), # tile_grid is from early dev, deprecated
+      scale_x: config[:scale_x],
+      scale_y: config[:scale_y],
+      center_x: config[:center_x],
+      center_y: config[:center_y],
     )
   end
 end

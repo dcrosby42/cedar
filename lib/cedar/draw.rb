@@ -7,7 +7,7 @@ module Cedar
         self.y ||= 0
         self.w ||= 1
         self.h ||= 1
-        self.z ||= 100
+        self.z ||= 0
         self.mode ||= :default
         Gosu.draw_rect(x, y, w, h, color, z, mode)
       end
@@ -20,7 +20,7 @@ module Cedar
         self.y ||= 0
         self.w ||= 1
         self.h ||= 1
-        self.z ||= 100
+        self.z ||= 0
         self.mode ||= :default
         Gosu.draw_line(x, y, color, x + w, y, color, z, mode)
         Gosu.draw_line(x + w, y, color, x + w, y + h, color, z, mode)
@@ -52,6 +52,9 @@ module Cedar
         self.name ||= self.sprite_id  # sprite_id is deprecated in favor of name
         return if name.nil? # quietly draw nothing when given nil.  Animations may choose to send nil sprite ids to indicate "nothing"
         sprite = res.get_sprite(self.name)
+        self.x ||= 0
+        self.y ||= 0
+        self.z ||= 0
         self.center_x ||= sprite.center_x || 0
         self.center_y ||= sprite.center_y || 0
         self.scale_x ||= sprite.scale_x || 1
