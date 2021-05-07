@@ -5,11 +5,24 @@ module Cedar
       @types = {}
       @caches = Hash.new do |h, k| h[k] = {} end
       @ctors = Hash.new do |h, k| h[k] = {} end
+      res = self
       @dynamic_ctors = {
         image: lambda do |name| lambda do @resource_loader.load_image(name) end end,
-        sound: lambda do |name| lambda do @resource_loader.load_sound(name) end end,
         file: lambda do |name| lambda do @resource_loader.load_file(name) end end,
         data: lambda do |name| lambda do @resource_loader.load_data(name) end end,
+        sound: lambda do |name|
+          lambda do
+            # sample = @resource_loader.load_sound(name)
+            # Cedar::Resources::Sound.new(name, sample)
+            Cedar::Resources::Sound.construct(
+              config: {
+                name: name,
+                sound: name,
+              },
+              resources: res,
+            )
+          end
+        end,
       }
       reset_caches
     end
@@ -95,10 +108,12 @@ module Cedar
       ctor = @ctors[category][name]
       return ctor if ctor
 
-      dctor = @dynamic_ctors[category]
-      if dctor
+      # If no pre-configured constructor exists for this cat+name,
+      # see if there's a catch-all dynamic constructor:
+      if dctor = @dynamic_ctors[category]
         return dctor.call(name)
       end
+
       raise "Can't find #{category} constructor for #{name.inspect}"
     end
 
@@ -119,3 +134,4 @@ require "cedar/resources/image_sprite"
 require "cedar/resources/grid_sheet_sprite"
 require "cedar/resources/sprite_animation"
 require "cedar/resources/cyclic_sprite_animation"
+require "cedar/resources/sound"

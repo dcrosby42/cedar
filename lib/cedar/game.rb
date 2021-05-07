@@ -31,6 +31,7 @@ class Cedar::Game < Gosu::Window
       Cedar::Resources::SpriteAnimation,
       Cedar::Resources::CyclicSpriteAnimation,
       Cedar::Resources::Font,
+      Cedar::Resources::Sound,
     ].each do |c|
       res.register_object_type c
     end
@@ -118,7 +119,7 @@ class Cedar::Game < Gosu::Window
   end
 
   def check_for_reload_code
-    if @reload_button && @input.keyboard.pressed?(@reload_button) && @input.keyboard.control?
+    if @reload_button && @input.keyboard.pressed?(@reload_button) && @input.keyboard.alt?
       puts "Code reload requested"
       return reload_code
     end

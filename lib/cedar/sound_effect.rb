@@ -14,14 +14,14 @@ module Cedar::Sound
   end
 
   # Meets the informal Cedar "drawable" interface
-  Effect = Struct.new(:path, :id, keyword_init: true) do
+  Effect = Struct.new(:name, :id, :volume, :looping, :speed, :pan, keyword_init: true) do
     # #play volume speed looping
     def draw(res)
-      key = "#{path}_#{id}"
+      key = "#{name}_#{id}"
       ch = ChannelCache[key]
       if !ch
-        sample = res.get_sound(path)
-        ch = sample.play
+        snd = res.get_sound(name)
+        ch = snd.play(pan, volume, speed, looping)
         ChannelCache[key] = ch
       end
       ChannelAccess << key

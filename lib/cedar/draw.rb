@@ -37,13 +37,21 @@ module Cedar
       end
     end
 
-    Image = Struct.new(:image, :path, :x, :y, :z, :scale_x, :scale_y, :subimage, keyword_init: true) do
+    Image = Struct.new(:image, :path, :x, :y, :z, :angle, :center_x, :center_y, :scale_x, :scale_y, :subimage, keyword_init: true) do
       def draw(res)
         img = image || res.get_image(path || raise("Image needs :image or :path"))
         if subimage
           img = img.subimage(*subimage)
         end
-        img.draw(x, y, z || 0, scale_x || 1, scale_y || 1)
+        self.x ||= 0
+        self.y ||= 0
+        self.z ||= 0
+        self.angle ||= 0
+        self.center_x ||= 0
+        self.center_y ||= 0
+        self.scale_x ||= 1
+        self.scale_y ||= 1
+        img.draw_rot(x, y, z, angle, center_x, center_y, scale_x, scale_y)
       end
     end
 
@@ -55,12 +63,13 @@ module Cedar
         self.x ||= 0
         self.y ||= 0
         self.z ||= 0
+        self.angle ||= 0
         self.center_x ||= sprite.center_x || 0
         self.center_y ||= sprite.center_y || 0
         self.scale_x ||= sprite.scale_x || 1
         self.scale_y ||= sprite.scale_y || 1
         img = sprite.image_for_frame(frame || sprite_frame || 0) # sprite_frame is deprecated in favor of frame
-        img.draw_rot(x, y, z || 0, angle || 0, center_x, center_y, scale_x, scale_y)
+        img.draw_rot(x, y, z, angle, center_x, center_y, scale_x, scale_y)
       end
     end
     # Legacy alias
