@@ -13,10 +13,16 @@ module Cedar::Sound
     ChannelAccess.clear
   end
 
+  def self.on; @on; end
+  def self.on=(b); @on = b; end
+
+  self.on = true
+
   # Meets the informal Cedar "drawable" interface
   Effect = Struct.new(:name, :id, :volume, :looping, :speed, :pan, keyword_init: true) do
     # #play volume speed looping
     def draw(res)
+      return unless Cedar::Sound.on
       key = "#{name}_#{id}"
       ch = ChannelCache[key]
       if !ch

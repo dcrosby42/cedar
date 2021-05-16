@@ -12,8 +12,6 @@ module Cedar
         data: lambda do |name| lambda do @resource_loader.load_data(name) end end,
         sound: lambda do |name|
           lambda do
-            # sample = @resource_loader.load_sound(name)
-            # Cedar::Resources::Sound.new(name, sample)
             Cedar::Resources::Sound.construct(
               config: {
                 name: name,
@@ -90,7 +88,6 @@ module Cedar
 
     def get_sound(name)
       get_resource :sound, name
-      # @resource_loader.load_sound(name)
     end
 
     def get_resource(category, name)
