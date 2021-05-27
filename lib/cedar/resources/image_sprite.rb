@@ -29,6 +29,13 @@ class Cedar::Resources::ImageSprite < Cedar::Resources::BaseSprite
     images = images.map do |name|
       resources.get_image(name)
     end
-    new(name: config[:name], images: images)
+    new(
+      name: config[:name],
+      images: images,
+      scale_x: config[:scale_x],
+      scale_y: config[:scale_y],
+      center_x: config[:center_x],
+      center_y: config[:center_y],
+    )
   end
 end

@@ -12,17 +12,18 @@
     - [Keyboard](#keyboard)
     - [Mouse](#mouse)
   - [Output](#output)
+    - [Cedar::Draw::Text](#cedardrawtext)
+    - [Cedar::Draw::Image](#cedardrawimage)
+    - [Cedar::Draw::Sprite](#cedardrawsprite)
     - [Cedar::Draw::Rect](#cedardrawrect)
     - [Cedar::Draw::RectOutline](#cedardrawrectoutline)
     - [Cedar::Draw::Line](#cedardrawline)
-    - [Cedar::Draw::Image](#cedardrawimage)
-    - [Cedar::Draw::Sprite](#cedardrawsprite)
-    - [Cedar::Draw::Text](#cedardrawtext)
     - [Cedar::Draw::Group](#cedardrawgroup)
     - [Cedar::Draw::Translate < Group](#cedardrawtranslate--group)
     - [Cedar::Draw::Scale < Group](#cedardrawscale--group)
   - [Resources](#resources)
     - [Resource Configs](#resource-configs)
+      - [image_sprite](#image_sprite)
       - [Config Examples](#config-examples)
       - [Custom Resources](#custom-resources)
 - [ECS](#ecs)
@@ -235,7 +236,25 @@ Configured resources are available via their `names` within their object type's 
 - `animation`
   - `cyclic_sprite_animation`
 
+#### image_sprite
+
+- `name`
+- `image` | `images`
+- [ `scale_x`, `scale_y` ]
+- [ `center_x`, `center_y` ] 
+
+image_sprite example:
+
+```json
+{
+    "type": "image_sprite",
+    "image": "sprites/smiley.png",
+    "name": "smiley_face"
+}
+```
+
 #### Config Examples
+
 
 ```json
 {
